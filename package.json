@@ -1,6 +1,6 @@
 {
-  "name": "nubibotv1",
-  "version": "1.0.0",
+  "name": "nubibot",
+  "version": "1.0.2",
   "description": "",
   "main": "src/index.js",
   "scripts": {
