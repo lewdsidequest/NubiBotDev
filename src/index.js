@@ -43,6 +43,6 @@ client.on('messageCreate', (msg) => {
   }
 });
 
-const mySecret = process.env['TOKEN']
-const nubId = process.env['NID']
+const mySecret = process.env.TOKEN;
+const nubId = process.env.NID;
 client.login(mySecret);
