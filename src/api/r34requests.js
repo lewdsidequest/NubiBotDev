@@ -14,19 +14,18 @@ export async function getRandomR34Post(tagString, limit) {
     .replace(/\(/g, "%28")
     .replace(/\)/g, "%29");
   //   console.log("finalTagString: " + finalTagString);
-  const testResponse = await fetch(
-    `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${finalTagString}&limit=${limit}&json=1`,
-    {
-      method: "GET",
-      headers: {
-        "User-Agent": "LSQTests/2.0",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const posts = JSON.parse(await testResponse.text());
-
   try {
+    const testResponse = await fetch(
+      `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${finalTagString}&limit=${limit}&json=1`,
+      {
+        method: "GET",
+        redirect: "follow",
+        userAgent: "LSQTests/2.0",
+        contentType: "application/json",
+      }
+    );
+    const posts = JSON.parse(await testResponse.text());
+
     const maxPosts = posts.length - 1;
     const chosenPost = posts[getRandomInt(0, maxPosts)];
     if (chosenPost) {
@@ -53,4 +52,4 @@ export async function getRandomR34Post(tagString, limit) {
   }
 }
 
-// console.log(await getRandomR34Post("animated female", 3));
+// console.log(await getRandomR34Post("animated female", 10));
