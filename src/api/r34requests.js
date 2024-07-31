@@ -23,6 +23,8 @@ export async function getRandomR34Post(tagString, limit) {
         userAgent: "LSQTests/2.0",
         contentType: "application/json",
         connection: "keep-alive",
+        accept: "application/json",
+        acceptEncoding: "gzip, deflate, br",
       }
     );
     console.dir(await testResponse, { depth: 3 });
