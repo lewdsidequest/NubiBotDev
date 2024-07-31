@@ -25,11 +25,11 @@ export async function getRandomR34Post(tagString, limit) {
         connection: "keep-alive",
       }
     );
-    console.dir(testResponse, { depth: 3 });
+    console.dir(await testResponse.json(), { depth: 3 });
     // const posts = JSON.parse(await testResponse.text());
-    const posts = await testResponse.json();
+    // const posts = await testResponse.json();
     // console.dir(posts, { depth: 3 });
-    // return;
+    return;
     const maxPosts = posts.length - 1;
     const chosenPost = posts[getRandomInt(0, maxPosts)];
     if (chosenPost) {
