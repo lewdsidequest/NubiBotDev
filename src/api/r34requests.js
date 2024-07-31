@@ -1,4 +1,4 @@
-import Booru from "booru";
+import fetch from "node-fetch";
 
 function getRandomInt(min, max) {
   const minCeiled = Math.ceil(min);
@@ -8,25 +8,39 @@ function getRandomInt(min, max) {
 
 export async function getRandomR34Post(tagString, limit) {
   let chosenUrl = "Error al obtener resultados";
-  try {
-    const myBooru = Booru.forSite("api.rule34.xxx");
-    let posts = await myBooru.search(tagString, { limit: limit });
+  const newStr = encodeURIComponent(tagString);
+  const finalTagString = newStr
+    .replace(/%20/g, "+")
+    .replace(/\(/g, "%28")
+    .replace(/\)/g, "%29");
+  //   console.log("finalTagString: " + finalTagString);
+  const testResponse = await fetch(
+    `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${finalTagString}&limit=${limit}&json=1`,
+    {
+      method: "GET",
+      headers: {
+        "User-Agent": "LSQTests/2.0",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const posts = JSON.parse(await testResponse.text());
 
-    // console.dir(posts, { depth: 3 });
+  try {
     const maxPosts = posts.length - 1;
     const chosenPost = posts[getRandomInt(0, maxPosts)];
     if (chosenPost) {
       if (
         chosenPost.tags.includes("animated") &&
-        !chosenPost.sampleUrl.includes(".gif")
+        !chosenPost.sample_url.includes(".gif")
       ) {
         //imprime post animado con file url
-        chosenUrl = chosenPost.fileUrl;
+        chosenUrl = chosenPost.file_url;
       }
       //si el post no esta shadow baneado imprime el sample url
-      else if (chosenPost.fileUrl) {
+      else if (chosenPost.file_url) {
         //imprime post no animado o GIF con sample url
-        chosenUrl = chosenPost.sampleUrl;
+        chosenUrl = chosenPost.sample_url;
       } else {
         chosenUrl = "El resultado aleatorio contiene sample url no valido";
         return chosenUrl;
@@ -38,4 +52,5 @@ export async function getRandomR34Post(tagString, limit) {
     return chosenUrl;
   }
 }
-// console.log(await getRandomR34Post("female animated", 10));
+
+// console.log(await getRandomR34Post("animated female", 3));
