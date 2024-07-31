@@ -1,4 +1,4 @@
-require("dotenv").config();
+import "dotenv/config.js";
 import { Client, IntentsBitField } from "discord.js";
 import mini_server from "./mini_server.js";
 import { getRandomE6Post } from "./api/e6requests.js";
@@ -298,4 +298,5 @@ client.on("messageCreate", async (msg) => {
 
 const mySecret = process.env.TOKEN;
 const nubId = process.env.NID;
+console.log(mySecret);
 client.login(mySecret);

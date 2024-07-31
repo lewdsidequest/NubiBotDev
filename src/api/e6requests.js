@@ -1,4 +1,4 @@
-require("dotenv").config();
+import "dotenv/config.js";
 import E621 from "e621";
 
 //ON DEPLOY USE THIS
