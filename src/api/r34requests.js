@@ -12,15 +12,8 @@ export async function getRandomR34Post(tagString, limit) {
     let posts = await Booru.search("api.rule34.xxx", [tagString], {
       limit: limit,
     });
-  } catch (err) {
-    console.log("Error al conectar con la API de r34\n" + err.message);
-    return chosenUrl;
-  }
-  // for (let post of posts) console.log(post.fileUrl);
 
-  // console.dir(posts, { depth: 3 });
-
-  try {
+    // console.dir(posts, { depth: 3 });
     const maxPosts = posts.length - 1;
     const chosenPost = posts[getRandomInt(0, maxPosts)];
     if (chosenPost) {
@@ -41,8 +34,8 @@ export async function getRandomR34Post(tagString, limit) {
       }
     }
     return chosenUrl;
-  } catch {
-    console.log("Ocurrio un error al obtener resultados");
+  } catch (err) {
+    console.log("Error al conectar con la API de r34\n" + err.message);
     return chosenUrl;
   }
 }

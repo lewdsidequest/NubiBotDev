@@ -1,13 +1,12 @@
 {
   "name": "nubibot",
-  "version": "1.5.2",
+  "version": "2.0.1",
   "description": "",
   "type": "module",
   "main": "src/index.js",
   "scripts": {
     "start": "node ./src/index.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -15,8 +14,6 @@
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "e621": "^2.2.6",
-    "express": "^4.18.2",
-    "node-fetch": "^3.3.2",
-    "xml-js": "^1.6.11"
+    "express": "^4.19.2"
   }
 }
