@@ -9,9 +9,8 @@ function getRandomInt(min, max) {
 export async function getRandomR34Post(tagString, limit) {
   let chosenUrl = "Error al obtener resultados";
   try {
-    let posts = await Booru.search("api.rule34.xxx", [tagString], {
-      limit: limit,
-    });
+    const myBooru = Booru.forSite("api.rule34.xxx");
+    let posts = await myBooru.search(tagString, { limit: limit });
 
     // console.dir(posts, { depth: 3 });
     const maxPosts = posts.length - 1;
@@ -39,3 +38,4 @@ export async function getRandomR34Post(tagString, limit) {
     return chosenUrl;
   }
 }
+// console.log(await getRandomR34Post("female animated", 10));
