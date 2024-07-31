@@ -22,6 +22,7 @@ export async function getRandomR34Post(tagString, limit) {
         redirect: "follow",
         userAgent: "LSQTests/2.0",
         contentType: "application/json",
+        connection: "keep-alive",
       }
     );
     const posts = JSON.parse(await testResponse.text());
