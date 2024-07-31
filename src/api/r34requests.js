@@ -1,4 +1,9 @@
-import fetch from "node-fetch";
+import "dotenv/config.js";
+import Booru from "booru";
+
+//ON DEPLOY USE THIS
+const username = process.env.R34UN;
+const pass = process.env.R34PASS;
 
 function getRandomInt(min, max) {
   const minCeiled = Math.ceil(min);
@@ -8,44 +13,29 @@ function getRandomInt(min, max) {
 
 export async function getRandomR34Post(tagString, limit) {
   let chosenUrl = "Error al obtener resultados";
-  const newStr = encodeURIComponent(tagString);
-  const finalTagString = newStr
-    .replace(/%20/g, "+")
-    .replace(/\(/g, "%28")
-    .replace(/\)/g, "%29");
-  //   console.log("finalTagString: " + finalTagString);
   try {
-    const testResponse = await fetch(
-      `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${finalTagString}&limit=${limit}&json=1`,
-      {
-        method: "GET",
-        redirect: "follow",
-        userAgent: "LSQTests/2.0",
-        contentType: "application/json",
-        connection: "keep-alive",
-        accept: "application/json",
-        acceptEncoding: "gzip, deflate, br",
-      }
-    );
-    console.dir(await testResponse, { depth: 3 });
-    // const posts = JSON.parse(await testResponse.text());
-    // const posts = await testResponse.json();
+    const myBooru = Booru.forSite("api.rule34.xxx", {
+      authUser: process.env.R34UN,
+      password: process.env.R34PASS,
+    });
+
+    let posts = await myBooru.search(tagString, { limit: limit });
+
     // console.dir(posts, { depth: 3 });
-    return;
     const maxPosts = posts.length - 1;
     const chosenPost = posts[getRandomInt(0, maxPosts)];
     if (chosenPost) {
       if (
         chosenPost.tags.includes("animated") &&
-        !chosenPost.sample_url.includes(".gif")
+        !chosenPost.sampleUrl.includes(".gif")
       ) {
         //imprime post animado con file url
-        chosenUrl = chosenPost.file_url;
+        chosenUrl = chosenPost.fileUrl;
       }
       //si el post no esta shadow baneado imprime el sample url
-      else if (chosenPost.file_url) {
+      else if (chosenPost.fileUrl) {
         //imprime post no animado o GIF con sample url
-        chosenUrl = chosenPost.sample_url;
+        chosenUrl = chosenPost.sampleUrl;
       } else {
         chosenUrl = "El resultado aleatorio contiene sample url no valido";
         return chosenUrl;
@@ -53,9 +43,8 @@ export async function getRandomR34Post(tagString, limit) {
     }
     return chosenUrl;
   } catch (err) {
-    console.log("Error al conectar con la API de r34\n" + err.message + "\n");
+    console.log("Error al conectar con la API de r34\n" + err.message);
     return chosenUrl;
   }
 }
-
-console.log(await getRandomR34Post("animated female", 2));
+console.log(await getRandomR34Post("female animated", 10));
