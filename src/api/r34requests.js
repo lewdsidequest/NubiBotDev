@@ -25,8 +25,11 @@ export async function getRandomR34Post(tagString, limit) {
         connection: "keep-alive",
       }
     );
-    const posts = JSON.parse(await testResponse.text());
 
+    // const posts = JSON.parse(await testResponse.text());
+    const posts = await testResponse.json();
+    // console.dir(posts, { depth: 3 });
+    // return;
     const maxPosts = posts.length - 1;
     const chosenPost = posts[getRandomInt(0, maxPosts)];
     if (chosenPost) {
@@ -48,9 +51,10 @@ export async function getRandomR34Post(tagString, limit) {
     }
     return chosenUrl;
   } catch (err) {
-    console.log("Error al conectar con la API de r34\n" + err.message);
+    console.log("Error al conectar con la API de r34\n" + err.message + "\n");
+    console.warn(xhr.responseText);
     return chosenUrl;
   }
 }
 
-// console.log(await getRandomR34Post("animated female", 10));
+console.log(await getRandomR34Post("animated female", 10));
