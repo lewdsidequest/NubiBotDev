@@ -8,9 +8,14 @@ function getRandomInt(min, max) {
 
 export async function getRandomR34Post(tagString, limit) {
   let chosenUrl = "Error al obtener resultados";
-  let posts = await Booru.search("api.rule34.xxx", [tagString], {
-    limit: limit,
-  });
+  try {
+    let posts = await Booru.search("api.rule34.xxx", [tagString], {
+      limit: limit,
+    });
+  } catch (err) {
+    console.log("Error al conectar con la API de r34\n" + err.message);
+    return chosenUrl;
+  }
   // for (let post of posts) console.log(post.fileUrl);
 
   // console.dir(posts, { depth: 3 });
