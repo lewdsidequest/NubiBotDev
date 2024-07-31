@@ -25,7 +25,7 @@ export async function getRandomR34Post(tagString, limit) {
         connection: "keep-alive",
       }
     );
-
+    console.dir(testResponse, { depth: 3 });
     // const posts = JSON.parse(await testResponse.text());
     const posts = await testResponse.json();
     // console.dir(posts, { depth: 3 });
@@ -52,9 +52,8 @@ export async function getRandomR34Post(tagString, limit) {
     return chosenUrl;
   } catch (err) {
     console.log("Error al conectar con la API de r34\n" + err.message + "\n");
-    console.warn(xhr.responseText);
     return chosenUrl;
   }
 }
 
-console.log(await getRandomR34Post("animated female", 10));
+console.log(await getRandomR34Post("animated female", 2));
