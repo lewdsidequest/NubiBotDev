@@ -25,12 +25,10 @@ export async function getRandomR34Post(tagString, limit) {
       },
     }
   );
-  const xmlfix = await testResponse.text();
-  const xmlfix2 = xmlfix
-    .replace(/[\n\r]/g, "\\n")
-    .replace(/&/g, "&amp;")
-    .replace(/-/g, "&#45;");
-  const data = convert.xml2js(xmlfix2);
+  const data = convert.xml2js(await testResponse.text(), {
+    compact: false,
+    spaces: 4,
+  });
   // console.dir(data, { depth: 3 });
   const posts = data.elements[0].elements;
   // console.dir(posts, { depth: 3 });
