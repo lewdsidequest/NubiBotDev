@@ -298,5 +298,4 @@ client.on("messageCreate", async (msg) => {
 
 const mySecret = process.env.TOKEN;
 const nubId = process.env.NID;
-console.log(mySecret);
 client.login(mySecret);
