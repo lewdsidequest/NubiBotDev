@@ -25,7 +25,12 @@ export async function getRandomR34Post(tagString, limit) {
       },
     }
   );
-  const data = convert.xml2js(await testResponse.text());
+  const xmlfix = await testResponse.text();
+  const xmlfix2 = xmlfix
+    .replace(/[\n\r]/g, "\\n")
+    .replace(/&/g, "&amp;")
+    .replace(/-/g, "&#45;");
+  const data = convert.xml2js(xmlfix2);
   // console.dir(data, { depth: 3 });
   const posts = data.elements[0].elements;
   // console.dir(posts, { depth: 3 });
@@ -55,3 +60,11 @@ export async function getRandomR34Post(tagString, limit) {
     return chosenUrl;
   }
 }
+const r34blacklist = ` -cuntboy -gore -feces -scat -vore -fart -fart_fetish -diaper -andromorph -maleherm -gender_transformation -macro -hyper_belly -pregnant -humiliation -degradation -food -rape -feral -young -loli -shota -toddler -bestiality -zoophilia`;
+console.log(
+  await getRandomR34Post(
+    "( raven_(dc) ~ gwen_tennyson ~ lord_dominator ~ loona_(helluva_boss) ~ rebecca_(edgerunners) ~ azula ~ nadia_fortune ~ elastigirl ~ matoi_ryuuko ~ catra ~ rose_the_cat ) female -rating:safe -flat_chested -futanari -small_breasts score:>=100" +
+      r34blacklist,
+    2
+  )
+);
