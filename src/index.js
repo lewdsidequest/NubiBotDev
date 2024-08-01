@@ -2,7 +2,6 @@ import "dotenv/config.js";
 import { Client, IntentsBitField } from "discord.js";
 import mini_server from "./mini_server.js";
 import { getRandomE6Post } from "./api/e6requests.js";
-import { getRandomR34Post } from "./api/r34requests.js";
 
 const usersMap = new Map();
 const LIMIT = 2;
@@ -121,7 +120,6 @@ client.on("messageCreate", async (msg) => {
   // custom e6 random img
   const e6blacklist = ` -baby -gore -feces -scatplay -vore -fart -fart_fetish -diaper -andromorph -maleherm -gender_transformation -macro -hyper_belly -pregnant -humiliation -degradation -food -rape -feral -young -loli -shota -toddler`; //blacklist para todo lo main
   const e6lsqBlacklist = ` -rating:safe -baby -gore -feces -scatplay -vore -fart -fart_fetish -diaper -andromorph -maleherm -gender_transformation -macro -hyper_belly -pregnant -humiliation -rape -toddler -male/male -intersex/male -male_penetrated -tentacles -big_anus`; //blacklist para lo nicho
-  const r34blacklist = ` -cuntboy -gore -feces -scat -vore -fart -fart_fetish -diaper -andromorph -maleherm -gender_transformation -macro -hyper_belly -pregnant -humiliation -degradation -food -rape -feral -young -loli -shota -toddler -bestiality -zoophilia`; //blacklist para todo lo main
   // * Si el usuario ya alcanzo el limite de usos recientes entonces no pasa a menos que tenga el rol que lo hace inmune a esta regla.
   if (
     usersMap.get(msg.member.id).msgCount < LIMIT ||
@@ -137,7 +135,7 @@ client.on("messageCreate", async (msg) => {
         await getRandomE6Post(
           "~meow_skulls_(fortnite) ~hariet_(mario) ~neco-arc ~amy_rose ~pinkie_pie_(mlp) ~princess_zelda ~blaze_the_cat ~lop_(star_wars_visions) ~yuumi_(lol) ~briar_(lol) ~neeko_(lol) ~betilla ~vex_(lol) score:>=75 rating:explicit" +
             e6blacklist,
-          200
+          300
         )
       );
     } else if (
@@ -149,7 +147,7 @@ client.on("messageCreate", async (msg) => {
       msg.reply(
         await getRandomE6Post(
           "kom_(komdog) ~female ~intersex score:>=50" + e6blacklist,
-          100
+          200
         )
       );
     } else if (
@@ -170,9 +168,9 @@ client.on("messageCreate", async (msg) => {
     ) {
       msg.reply(
         await getRandomE6Post(
-          "big_breasts ~huge_breasts -intersex ~oppai_loli young female score:>=78 -hyper -young_male -younger_male -smaller_male -shota -flat_chested -small_breasts -bestiality" +
+          "big_breasts ~huge_breasts -intersex ~oppai_loli ~short_stack young female score:>=78 -hyper -young_male -younger_male -smaller_male -shota -flat_chested -small_breasts -bestiality" +
             e6lsqBlacklist,
-          200
+          300
         )
       );
     } else if (
@@ -185,7 +183,7 @@ client.on("messageCreate", async (msg) => {
         await getRandomE6Post(
           "~judy_hopps ~nikki_(saucy) ~denisse ~katrina_fowler ~ginger_(jaeh) ~cherry_(animal_crossing) ~pinkie_pie_(mlp) ~fiona_fawnbags_(dullvivid) ~tits_(lysergide) ~lillia_(lol) ~charizard ~michiru_kagemori ~fluttershy_(mlp) big_breasts female -intersex score:>=50" +
             e6blacklist,
-          200
+          300
         )
       );
     } else if (
@@ -195,10 +193,10 @@ client.on("messageCreate", async (msg) => {
         msg.channelId === chTempKinky)
     ) {
       msg.reply(
-        await getRandomR34Post(
-          "( raven_(dc) ~ gwen_tennyson ~ lord_dominator ~ loona_(helluva_boss) ~ rebecca_(edgerunners) ~ azula ~ nadia_fortune ~ elastigirl ~ matoi_ryuuko ~ catra ~ rose_the_cat ) female -rating:safe -flat_chested -futanari -small_breasts score:>=100" +
-            r34blacklist,
-          200
+        await getRandomE6Post(
+          "~raven_(dc) ~gwen_tennyson ~lord_dominator ~loona_(helluva_boss) ~rebecca_(cyberpunk_edgerunners) ~azula_(avatar) ~nadia_fortune ~helen_parr ~ryuko_matoi ~catra_(she-ra) ~rose_the_cat female -rating:safe -flat_chested -intersex score:>=10" +
+            e6blacklist,
+          300
         )
       );
     } else if (
@@ -209,7 +207,7 @@ client.on("messageCreate", async (msg) => {
         await getRandomE6Post(
           "~intersex ~intersex/female score:>=250 -intersex/male -male_penetrated -intersex_penetrating_male score:>=200" +
             e6blacklist,
-          100
+          300
         )
       );
     } else if (
@@ -219,10 +217,10 @@ client.on("messageCreate", async (msg) => {
         msg.channelId === chTempKinky)
     ) {
       msg.reply(
-        await getRandomR34Post(
-          "( mirko ~ kitagawa_marin ~ blackfire ~ morgana ~ chun-li ~ tatsumaki ~ mitaka_asa ~ bulma_briefs ~ tsuyu_asui ) female -rating:safe -flat_chested -futanari -dickgirl -small_breasts score:>=100" +
-            r34blacklist,
-          200
+        await getRandomE6Post(
+          "~rumi_usagiyama ~kitagawa_marin ~princess_komand'r ~morgana_(lol) ~chun-li ~tatsumaki ~asa_mitaka_(chainsaw_man) ~bulma ~asui_tsuyu female -rating:safe -flat_chested -intersex -small_breasts score:>=40" +
+            e6blacklist,
+          300
         )
       );
     } else if (
@@ -234,7 +232,7 @@ client.on("messageCreate", async (msg) => {
       msg.reply(
         await getRandomE6Post(
           "male/female female_penetrated score:>=350" + e6blacklist,
-          100
+          200
         )
       );
     } else if (
@@ -245,8 +243,8 @@ client.on("messageCreate", async (msg) => {
     ) {
       msg.reply(
         await getRandomE6Post(
-          "fellatio male/female score:>=200 -female_penetrated" + e6blacklist,
-          100
+          "fellatio male/female score:>=250 -female_penetrated" + e6blacklist,
+          200
         )
       );
     } else if (
@@ -259,7 +257,7 @@ client.on("messageCreate", async (msg) => {
         await getRandomE6Post(
           "~cum_in_pussy ~cum_in_mouth ~cum_on_breasts ~cum_on_face type:gif ejaculation female score:>=400 -solo -cum_on_self -male/male -intersex" +
             e6blacklist,
-          200
+          300
         )
       );
     } else if (
@@ -271,7 +269,7 @@ client.on("messageCreate", async (msg) => {
       msg.reply(
         await getRandomE6Post(
           "female/female rating:explicit score:>=150" + e6blacklist,
-          100
+          200
         )
       );
     } else if (
@@ -281,7 +279,7 @@ client.on("messageCreate", async (msg) => {
       msg.reply(
         await getRandomE6Post(
           "feral female score:>=350 -young" + e6lsqBlacklist,
-          200
+          300
         )
       );
     }
