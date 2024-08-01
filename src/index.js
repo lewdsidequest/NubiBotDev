@@ -2,6 +2,7 @@ import "dotenv/config.js";
 import { Client, IntentsBitField } from "discord.js";
 import mini_server from "./mini_server.js";
 import { getRandomE6Post } from "./api/e6requests.js";
+import { getRandomR34Post } from "./api/e6requests.js";
 
 const usersMap = new Map();
 const LIMIT = 2;
